@@ -1,0 +1,6 @@
+/* src/App.css - The CORRECTED code */
+
+.App {
+  /* We remove max-width and margin to allow it to span the full width */
+  min-height: 100vh; /* Optional: Makes sure the app background fills the screen height */
+}
