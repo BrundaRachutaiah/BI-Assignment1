@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchEvents, fetchEventById } from './api';
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
@@ -11,20 +12,17 @@ const useFetch = (url) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Use relative URL instead of absolute
-        const response = await fetch(`/api${url}`, { signal: abortController.signal });
+        let result;
         
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        
-        const result = await response.json();
-        // Handle different response formats from the backend
-        if (result.success && result.data) {
-          setData(result.data);
+        if (url.startsWith('/events/') && url !== '/events') {
+          // Extract ID from URL
+          const id = url.split('/')[2];
+          result = await fetchEventById(id);
         } else {
-          setData(result);
+          result = await fetchEvents();
         }
+        
+        setData(result);
         setError(null);
       } catch (err) {
         if (err.name !== 'AbortError') {

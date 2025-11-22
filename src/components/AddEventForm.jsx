@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createEvent } from '../api';
 
 const AddEventForm = () => {
   const navigate = useNavigate();
@@ -75,25 +76,9 @@ const AddEventForm = () => {
     };
 
     try {
-      // Use relative URL
-      const response = await fetch('/api/events', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(eventData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
-      }
-
+      await createEvent(eventData);
       // On success, navigate to the home page
       navigate('/');
-      console.log('Event created:', data);
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -101,6 +86,7 @@ const AddEventForm = () => {
     }
   };
 
+  // Rest of the component remains the same...
   return (
     <div className="container mt-4">
       <div className="row justify-content-center">

@@ -4,7 +4,7 @@ import useFetch from '../useFetch';
 
 const EventDetails = () => {
   const { id } = useParams();
-  // Use relative URL
+  // Use the Vercel URL
   const API_URL = `/events/${id}`;
   const { data: event, loading, error } = useFetch(API_URL);
 
