@@ -1,5 +1,5 @@
+// src/useFetch.js
 import { useState, useEffect } from 'react';
-import { fetchEvents, fetchEventById } from './api';
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
@@ -12,17 +12,27 @@ const useFetch = (url) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        let result;
         
-        if (url.startsWith('/events/') && url !== '/events') {
-          // Extract ID from URL
-          const id = url.split('/')[2];
-          result = await fetchEventById(id);
-        } else {
-          result = await fetchEvents();
+        // --- THIS IS THE KEY CHANGE ---
+        // Determine the base URL based on the environment
+        const isDev = import.meta.env.DEV;
+        // In development, use the proxy. In production, use the .env variable.
+        const baseURL = isDev ? '' : import.meta.env.VITE_API_URL;
+        const fullUrl = `${baseURL}/api${url}`;
+
+        const response = await fetch(fullUrl, { signal: abortController.signal });
+        
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         
-        setData(result);
+        const result = await response.json();
+        // Handle the response format from your backend
+        if (result.success && result.data) {
+          setData(result.data);
+        } else {
+          setData(result);
+        }
         setError(null);
       } catch (err) {
         if (err.name !== 'AbortError') {

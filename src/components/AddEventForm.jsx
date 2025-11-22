@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createEvent } from '../api';
 
 const AddEventForm = () => {
   const navigate = useNavigate();
@@ -76,9 +75,29 @@ const AddEventForm = () => {
     };
 
     try {
-      await createEvent(eventData);
+      // Determine the base URL based on the environment
+      const isDev = import.meta.env.DEV;
+      const baseURL = isDev ? '' : import.meta.env.VITE_API_URL;
+      
+      // Make the POST request
+      const response = await fetch(`${baseURL}/api/events`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
       // On success, navigate to the home page
       navigate('/');
+      console.log('Event created:', data);
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -86,7 +105,6 @@ const AddEventForm = () => {
     }
   };
 
-  // Rest of the component remains the same...
   return (
     <div className="container mt-4">
       <div className="row justify-content-center">
