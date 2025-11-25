@@ -22,7 +22,11 @@ const EventCard = ({ event }) => {
             <i className="bi bi-calendar-event me-1"></i>
             {formatDate(event.date)}
           </p>
-          <p className="card-text flex-grow-1">{event.description.substring(0, 80)}...</p>
+          <p className="card-text text-muted small">
+            <i className="bi bi-clock me-1"></i>
+            {event.time}
+          </p>
+          <p className="card-text flex-grow-1">{event.description.substring(0, 100)}...</p>
           <div className="d-flex justify-content-between align-items-center mt-auto">
             <span className="fw-bold text-primary">
               {event.ticketPrice === 0 ? 'Free' : `₹${event.ticketPrice}`}

@@ -13,7 +13,7 @@ const AddEventForm = () => {
     venue: '',
     address: '',
     ticketPrice: 0,
-    speakers: [{ name: '', title: '' }],
+    speakers: [{ name: '', title: '', image: '' }],
     description: '',
     tags: '',
     dressCode: 'Casual',
@@ -38,7 +38,7 @@ const AddEventForm = () => {
 
   // Add a new speaker input field
   const addSpeaker = () => {
-    setFormData({ ...formData, speakers: [...speakers, { name: '', title: '' }] });
+    setFormData({ ...formData, speakers: [...speakers, { name: '', title: '', image: '' }] });
   };
 
   // Remove a speaker input field
@@ -137,7 +137,7 @@ const AddEventForm = () => {
                   </div>
                   <div className="col-md-4">
                     <label htmlFor="time" className="form-label">Time *</label>
-                    <input type="text" className="form-control" id="time" name="time" value={time} onChange={onChange} placeholder="e.g., 10:00 - 12:00" required />
+                    <input type="text" className="form-control" id="time" name="time" value={time} onChange={onChange} placeholder="e.g., 10:00 AM - 12:00 PM" required />
                   </div>
                   
                   {/* Image and Host */}
@@ -182,15 +182,25 @@ const AddEventForm = () => {
                   <div className="col-12">
                     <label className="form-label">Speakers *</label>
                     {speakers.map((speaker, index) => (
-                      <div key={index} className="row g-2 mb-2">
-                        <div className="col-md-5">
-                          <input type="text" className="form-control" placeholder="Name" name="name" value={speaker.name} onChange={(e) => handleSpeakerChange(index, e)} required />
-                        </div>
-                        <div className="col-md-5">
-                          <input type="text" className="form-control" placeholder="Title" name="title" value={speaker.title} onChange={(e) => handleSpeakerChange(index, e)} required />
-                        </div>
-                        <div className="col-md-2">
-                          <button type="button" className="btn btn-danger btn-sm w-100" onClick={() => removeSpeaker(index)} disabled={speakers.length === 1}>Remove</button>
+                      <div key={index} className="card mb-3">
+                        <div className="card-body">
+                          <div className="row g-2">
+                            <div className="col-md-3">
+                              <label className="form-label small">Name</label>
+                              <input type="text" className="form-control" placeholder="Name" name="name" value={speaker.name} onChange={(e) => handleSpeakerChange(index, e)} required />
+                            </div>
+                            <div className="col-md-4">
+                              <label className="form-label small">Title</label>
+                              <input type="text" className="form-control" placeholder="Title" name="title" value={speaker.title} onChange={(e) => handleSpeakerChange(index, e)} required />
+                            </div>
+                            <div className="col-md-4">
+                              <label className="form-label small">Image URL</label>
+                              <input type="text" className="form-control" placeholder="Image URL" name="image" value={speaker.image} onChange={(e) => handleSpeakerChange(index, e)} />
+                            </div>
+                            <div className="col-md-1 d-flex align-items-end">
+                              <button type="button" className="btn btn-danger btn-sm w-100" onClick={() => removeSpeaker(index)} disabled={speakers.length === 1}>Remove</button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}

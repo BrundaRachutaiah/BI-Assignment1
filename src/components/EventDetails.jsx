@@ -67,11 +67,28 @@ const EventDetails = () => {
           
           <div className="mb-3">
             <h5>Speakers</h5>
-            {event.speakers.map((speaker, index) => (
-              <p key={index}>
-                <strong>{speaker.name}</strong> - {speaker.title}
-              </p>
-            ))}
+            <div className="row">
+              {event.speakers.map((speaker, index) => (
+                <div key={index} className="col-md-6 mb-3">
+                  <div className="card h-100">
+                    <div className="row g-0">
+                      <div className="col-md-4">
+                        <img src={speaker.image || 'https://picsum.photos/seed/speaker/200/200.jpg'} 
+                             className="img-fluid rounded-start h-100" 
+                             alt={speaker.name} 
+                             style={{ objectFit: 'cover' }} />
+                      </div>
+                      <div className="col-md-8">
+                        <div className="card-body">
+                          <h6 className="card-title">{speaker.name}</h6>
+                          <p className="card-text small">{speaker.title}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           
           <div className="mb-3">
