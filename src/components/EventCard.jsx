@@ -24,7 +24,7 @@ const EventCard = ({ event }) => {
           </p>
           <p className="card-text text-muted small">
             <i className="bi bi-clock me-1"></i>
-            {event.time}
+            {event.time} {/* This will now display the time with AM/PM */}
           </p>
           <p className="card-text flex-grow-1">{event.description.substring(0, 100)}...</p>
           <div className="d-flex justify-content-between align-items-center mt-auto">
