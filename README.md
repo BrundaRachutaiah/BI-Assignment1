@@ -7,14 +7,14 @@ Built with a **React** frontend (Vite), **Express/Node** backend, and **MongoDB*
 
 ## 🔗 Demo Link
 
-**Live Demo:** [https://meet-up-back.vercel.app](https://meet-up-back.vercel.app)
+**Live Demo:** `https://www.loom.com/share/de341c1dda864e66956c442bb7b0f131`
 
 ---
 
 ## ⚡ Quick Start
 
 ```bash
-git clone https://github.com/<your-username>/BI-Assignment1.git
+git clone https://github.com/BrundaRachutaiah/BI-Assignment1.git
 cd BI-Assignment1
 npm install
 npm run dev
@@ -96,7 +96,7 @@ BI-Assignment1-main/
 
 ## 🌐 API Reference
 
-Base URL: `https://meet-up-back.vercel.app/api`
+Base URL: `https://frontend-meet-uo.vercel.app/`
 
 ### `GET /api/events`
 Returns a list of all events.
